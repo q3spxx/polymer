@@ -20,7 +20,7 @@ declare global {
 export class Button extends PureComponent<Props> {
     private elementRef = React.createRef<HTMLElement>();
 
-    private handleSelect = (event: any) => {
+    private handleSelect = (event: CustomEvent<{ name: string }>) => {
         const { onSelect } = this.props;
         if (onSelect) {
             onSelect(event.detail.name);
