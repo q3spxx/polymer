@@ -1,6 +1,13 @@
 import { LitElement, html, property } from 'lit-element';
 import { styles } from './modal.styles';
 
+interface Theme {
+    color?: string;
+    backgroundColor?: string;
+    buttonOkBgColor?: string;
+    buttonOkColor?: string;
+}
+
 class Modal extends LitElement {    
     @property({ type: Boolean }) open = false;
     @property({ type: String }) mode = '';
@@ -9,10 +16,10 @@ class Modal extends LitElement {
 
     attributeChangedCallback(name: string, oldValue: string, nextValue: string) {
         super.attributeChangedCallback(name, oldValue, nextValue);
-        const isOpen = name === 'open' && nextValue;
-        if (isOpen) {
+        if (name === 'open' && nextValue) {
             this.bodyDocument.style.overflow = 'hidden';
-        } else {    
+        } 
+        if (name === 'open' && !nextValue) {    
             this.bodyDocument.style.overflow = '';
         }
     }
@@ -33,11 +40,23 @@ class Modal extends LitElement {
         this.requestUpdate();
     };
 
+    getColors = (): Theme => {
+        const { mode } = this;
+        if (mode === 'dark') {
+            return { color: '#fff', backgroundColor: '#2c2f3c' };
+        }
+        return { color: '#2c2f3c', backgroundColor: '#fff' };
+    }
+
+    getStyles = () => `
+        --modal-bg-color: ${this.getColors().backgroundColor};
+        --modal-color: ${this.getColors().color};
+    `
+
     render() {
-        const styles = `--modal-bg-color: ${JSON.parse(this.mode).backgroundColor}; --modal-color: ${JSON.parse(this.mode).color}`;
         return !!this.open ? html`
-                <div class="dialog" style=${styles}>
-                    <div class="dialog__content">
+                <div class="dialog" style=${this.getStyles()}>
+                    <div class="dialog-content">
                         <header>
                             <h2>Заголовок модального окна</h2>
                         </header>
@@ -45,10 +64,10 @@ class Modal extends LitElement {
                             <slot></slot>
                         </main>
                         <footer>
-                            <button class="dialog__ok-btn" @click=${this.handleClick('ok')}>OK</button>
-                            <button class="dialog__cancel-btn" @click=${this.handleClick('cancel')}>CANCEL</button>
+                            <button class="dialog-ok-btn" @click=${this.handleClick('ok')}>OK</button>
+                            <button class="dialog-cancel-btn" @click=${this.handleClick('cancel')}>CANCEL</button>
                         </footer>
-                        <div class="dialog__close-btn" @click=${this.handleClick('close')}></div>
+                        <div class="dialog-close-btn" @click=${this.handleClick('close')}></div>
                     </div>
                 </div>
                 <div  class="overlay"></div>

@@ -33,7 +33,7 @@ export const styles = css`
         text-align: center;
     }
   
-    .dialog__content {
+    .dialog-content {
         position: relative;
         max-width: 520px;
         background-color: var(--modal-bg-color, #ffffff);
@@ -48,7 +48,7 @@ export const styles = css`
         margin-bottom: 10px;
     }
     
-    .dialog__ok-btn {
+    .dialog-ok-btn {
         cursor: pointer;
         height: 30px;
         padding: 6px 15px;
@@ -64,12 +64,12 @@ export const styles = css`
         font-size: 14px;
         color: white;
         border-color: transparent;
-        background-color: #0279c0;
+        background-color: var(--dialog-ok-bg-color, #30B6DD);
     }
     
-    .dialog__cancel-btn {
+    .dialog-cancel-btn {
         cursor: pointer;
-        color: #0279c0;
+        color: #30B6DD;
         background-color: transparent;
         border-color: transparent;
         box-shadow: none;
@@ -77,11 +77,11 @@ export const styles = css`
     
     }
     
-    .dialog__cancel-btn:hover {
+    .dialog-cancel-btn:hover {
         text-decoration: underline;
     }
     
-    .dialog__close-btn {
+    .dialog-close-btn {
         border: 0;
         background: none;
         position: absolute;
@@ -92,7 +92,7 @@ export const styles = css`
         cursor: pointer;
     }
 
-    .dialog__close-btn::before, .dialog__close-btn::after {
+    .dialog-close-btn::before, .dialog-close-btn::after {
         position: absolute;
         top: -2px;
         right: 6px;
@@ -104,11 +104,11 @@ export const styles = css`
         background-color: #d9d9d9;
     }
     
-    .dialog__close-btn::before {
+    .dialog-close-btn::before {
         transform: rotate(45deg);
     }
     
-    .dialog__close-btn::after {
+    .dialog-close-btn::after {
         transform: rotate(-45deg);
     }
 `;

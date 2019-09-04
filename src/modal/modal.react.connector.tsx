@@ -45,22 +45,14 @@ export class ModalComponent extends PureComponent<Props> {
         }
     }
 
-    getColors = () => {
-        const { mode } = this.props;
-        if (mode === 'dark') {
-            return JSON.stringify({ color: '#fff', backgroundColor: '#2c2f3c' });
-        }
-        return JSON.stringify({ color: '#2c2f3c', backgroundColor: '#fff' });
-    }
-
     render() {
-        const { children, open } = this.props;
+        const { children, open, mode } = this.props;
         return open ? (
-            <lit-modal ref={this.elementRef} open mode={this.getColors()}>
+            <lit-modal ref={this.elementRef} open mode={mode}>
                 {children}
             </lit-modal>
         ) : (
-            <lit-modal ref={this.elementRef} mode={this.getColors()}>
+            <lit-modal ref={this.elementRef} mode={mode}>
                 {children}
             </lit-modal>
         );

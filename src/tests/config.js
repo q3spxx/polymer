@@ -6,14 +6,15 @@ const getMatchOptions = ({ context: { kind, story }, url }) => {
         failureThresholdType: 'percent',
     };
 };
-const beforeScreenshot = (page, { context: { kind, story }, url }) => {
-    return new Promise(resolve =>
-        setTimeout(() => {
-            resolve();
-        }, 600)
-    );
+const beforeScreenshot = (page, { context: { kind }, url }) => {
+    switch (kind) {
+        default:
+            return page.setViewport({ width: 800, height: 600 }).then(() => {
+                return new Promise(() => setTimeout(resolve, 300));
+            });;
+    };
 };
 initStoryshots({
     suite: 'Image storyshots',
-    test: imageSnapshot({ storybookUrl: 'http://localhost:6006', getMatchOptions, beforeScreenshot }),
+    test: imageSnapshot({ storybookUrl: 'http://localhost:6006', beforeScreenshot }),
 });

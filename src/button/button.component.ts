@@ -35,7 +35,7 @@ class Button extends LitElement {
             <ul class="dropdown">
                 ${options.map(
                     name => html`
-                        <li @click=${this.handleSelect(name)}>${name}</li>
+                        <li style=${'--list-element-color: ' + name} @click=${this.handleSelect(name)}>${name}</li>
                     `
                 )}
             </ul>
@@ -55,5 +55,3 @@ class Button extends LitElement {
 }
 
 customElements.define('lit-button', Button);
-// if (!window.customElements.get('lit-button')) {
-// }
