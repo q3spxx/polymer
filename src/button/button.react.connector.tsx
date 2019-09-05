@@ -5,14 +5,11 @@ interface Props {
     options?: string[];
     onSelect?(message: string): void;
 }
-interface LitProps {
-    options?: string;
-}
 
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            'lit-button': LitProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            'lit-button': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
         }
     }
 }
@@ -30,6 +27,7 @@ export class Button extends PureComponent<Props> {
     componentDidMount() {
         if (this.elementRef.current) {
             this.elementRef.current.addEventListener('on-select', this.handleSelect);
+            (this.elementRef.current as any).options = this.props.options;
         }
     }
 
@@ -40,9 +38,9 @@ export class Button extends PureComponent<Props> {
     }
 
     render() {
-        const { children, options } = this.props;
+        const { children } = this.props;
         return (
-            <lit-button ref={this.elementRef} options={JSON.stringify(options)}>
+            <lit-button ref={this.elementRef}>
                 {children}
             </lit-button>
         );

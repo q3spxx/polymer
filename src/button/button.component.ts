@@ -1,8 +1,8 @@
-import { LitElement, html, property } from 'lit-element';
+import { LitElement, html } from 'lit-element';
 import { styles } from './buttons.styles';
 
 class Button extends LitElement {
-    @property({ type: Array }) options: string[] = [];
+    public options: string[] = [];
 
     static get styles() {
         return styles;
